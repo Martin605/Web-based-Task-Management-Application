@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1>My Tasks</h1>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Description</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for task in tasks %}
+          <tr>
+            <td>{{ task.title }}</td>
+            <td>{{ task.description }}</td>
+            <td>
+              <a href="{{ url_for('main.edit_task', task_id=task.id) }}" class="btn btn-primary btn-sm">Edit</a>
+              {% if not task.complete %}
+                <a href="{{ url_for('main.complete_task', task_id=task.id) }}" class="btn btn-success btn-sm">Complete</a>
+              {% endif %}
+              <a href="{{ url_for('main.delete_task', task_id=task.id) }}" class="btn btn-danger btn-sm">Delete</a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="{{ url_for('main.create_task') }}" class="btn btn-primary">Create Task</a>
+  </div>
+{% endblock %}

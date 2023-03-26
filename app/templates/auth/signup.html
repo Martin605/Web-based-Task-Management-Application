@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+  <form method="POST" action="{{ url_for('auth.signup') }}" class="form-signin">
+    <h2 class="form-signin-heading">Sign up</h2>
+
+    {% for field in form %}
+      <div class="form-group">
+        {% if field.name != 'csrf_token' %}
+          {{ field.label(class="control-label") }}
+        {% endif %}
+          {{ field(class="form-control") }}
+          {% if field.errors %}
+            <ul class="errors">
+              {% for error in field.errors %}
+                <li>{{ error }}</li>
+              {% endfor %}
+            </ul>
+          {% endif %}
+        
+      </div>
+    {% endfor %}
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+  </form>
+</div>
+{% endblock %}
